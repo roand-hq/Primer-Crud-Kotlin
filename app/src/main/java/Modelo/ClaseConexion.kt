@@ -6,8 +6,8 @@ class ClaseConexion {
     fun CadenaConexion(): Connection? {
         try {
             val url = "jdbc:oracle:thin:@192.168.1.7:1521:xe"
-            val usuario = "system"
-            val clave = "ITR2024"
+            val usuario = "c##_Rodrigo"
+            val clave = "momazos_salecianos"
              val conexion = DriverManager.getConnection(url,usuario,clave)
             return conexion
         } catch(e: Exception) {

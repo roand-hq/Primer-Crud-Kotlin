@@ -11,7 +11,11 @@
         android:label="Registro" >
         <action
             android:id="@+id/action_registro_to_login"
-            app:destination="@id/login" />
+            app:destination="@id/login"
+            app:enterAnim="@android:anim/slide_in_left" />
+        <action
+            android:id="@+id/action_registro_to_fragment_Bienvenida"
+            app:destination="@id/fragment_Bienvenida" />
     </fragment>
     <fragment
         android:id="@+id/fragment_Bienvenida"
@@ -24,8 +28,7 @@
         <action
             android:id="@+id/action_fragment_Bienvenida_to_login"
             app:destination="@id/login"
-            app:enterAnim="@android:anim/slide_in_left"
-            app:exitAnim="@android:anim/slide_in_left" />
+            app:enterAnim="@android:anim/slide_in_left" />
     </fragment>
     <fragment
         android:id="@+id/login"
