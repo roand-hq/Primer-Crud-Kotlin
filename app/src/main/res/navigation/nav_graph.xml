@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/fragment_Bienvenida">
+
+    <fragment
+        android:id="@+id/registro"
+        android:name="rodrigo.hurtado.appcrud.Registro"
+        android:label="Registro" >
+        <action
+            android:id="@+id/action_registro_to_login"
+            app:destination="@id/login" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_Bienvenida"
+        android:name="rodrigo.hurtado.appcrud.fragment_Bienvenida"
+        android:label="fragment_Bienvenida" >
+        <action
+            android:id="@+id/action_fragment_Bienvenida_to_registro"
+            app:destination="@id/registro"
+            app:enterAnim="@android:anim/slide_in_left" />
+        <action
+            android:id="@+id/action_fragment_Bienvenida_to_login"
+            app:destination="@id/login"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_in_left" />
+    </fragment>
+    <fragment
+        android:id="@+id/login"
+        android:name="rodrigo.hurtado.appcrud.Login"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" />
+</navigation>

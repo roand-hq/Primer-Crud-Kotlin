@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/crema"
+    tools:context=".MainActivity">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="156dp"
+                android:layout_height="148dp"
+                android:adjustViewBounds="false"
+                android:cropToPadding="false"
+                android:src="@drawable/ticket_icon"
+                android:layout_marginBottom="16dp" />
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="400dp"
+                android:layout_height="900dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="16dp"
+                android:src="@drawable/txt_border" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginTop="200dp"
+            android:padding="16dp">
+
+            <EditText
+                android:id="@+id/txtNombre"
+                android:layout_width="340dp"
+                android:layout_height="55dp"
+                android:layout_margin="8dp"
+                android:background="@drawable/txt_border"
+                android:ems="10"
+                android:fontFamily="@font/nunito_sans"
+                android:hint="Nombre"
+                android:inputType="text"
+                android:text=""
+                android:textSize="20sp"
+                android:layout_gravity="center" />
+
+            <EditText
+                android:id="@+id/txtApellido"
+                android:layout_width="340dp"
+                android:layout_height="55dp"
+                android:layout_margin="8dp"
+                android:background="@drawable/txt_border"
+                android:ems="10"
+                android:fontFamily="@font/nunito_sans"
+                android:hint="Apellido"
+                android:inputType="text"
+                android:text=""
+                android:textSize="20sp"
+                android:layout_gravity="center" />
+
+            <EditText
+                android:id="@+id/txtCorreo"
+                android:layout_width="340dp"
+                android:layout_height="55dp"
+                android:layout_margin="8dp"
+                android:background="@drawable/txt_border"
+                android:ems="10"
+                android:fontFamily="@font/nunito_sans"
+                android:hint="Correo electronico"
+                android:inputType="text"
+                android:text=""
+                android:textSize="20sp"
+                android:layout_gravity="center" />
+
+            <EditText
+                android:id="@+id/txtClave"
+                android:layout_width="340dp"
+                android:layout_height="55dp"
+                android:layout_margin="8dp"
+                android:background="@drawable/txt_border"
+                android:ems="10"
+                android:fontFamily="@font/nunito_sans"
+                android:hint="Contraseña"
+                android:inputType="textPassword"
+                android:textSize="20sp"
+                android:layout_gravity="center" />
+
+            <EditText
+                android:id="@+id/txtConfirmar"
+                android:layout_width="340dp"
+                android:layout_height="55dp"
+                android:layout_margin="8dp"
+                android:background="@drawable/txt_border"
+                android:ems="10"
+                android:fontFamily="@font/nunito_sans"
+                android:hint="Confirmar contraseña"
+                android:inputType="textPassword"
+                android:textSize="20sp"
+                android:layout_gravity="center" />
+
+            <Button
+                android:id="@+id/btnRegistro"
+                android:layout_width="221dp"
+                android:layout_height="70dp"
+                android:fontFamily="@font/nunito_sans"
+                android:text="Registrarse"
+                android:textSize="24sp"
+                android:layout_marginTop="16dp"
+                android:layout_gravity="center" />
+        </LinearLayout>
+    </FrameLayout>
+</ScrollView>

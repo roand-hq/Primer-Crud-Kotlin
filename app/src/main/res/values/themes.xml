@@ -1,0 +1,11 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.AppCRUD" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <item name="colorPrimary">@color/choco</item>
+        <item name="colorPrimaryVariant">@color/choco</item>
+        <item name="android:statusBarColor">@color/choco</item>
+    </style>
+
+    <style name="Theme.AppCRUD" parent="Base.Theme.AppCRUD" />
+</resources>
