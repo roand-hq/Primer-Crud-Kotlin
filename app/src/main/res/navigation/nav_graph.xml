@@ -13,9 +13,6 @@
             android:id="@+id/action_registro_to_login"
             app:destination="@id/login"
             app:enterAnim="@android:anim/slide_in_left" />
-        <action
-            android:id="@+id/action_registro_to_fragment_Bienvenida"
-            app:destination="@id/fragment_Bienvenida" />
     </fragment>
     <fragment
         android:id="@+id/fragment_Bienvenida"
