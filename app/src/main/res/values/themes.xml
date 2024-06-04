@@ -6,6 +6,10 @@
         <item name="colorPrimaryVariant">@color/choco</item>
         <item name="android:statusBarColor">@color/choco</item>
     </style>
-
+    <style name="BottomNavigation">
+        <item name="android:background">@color/crema</item>
+        <item name="itemIconTint">@color/choco</item>
+        <item name="itemTextColor">@color/choco</item>
+    </style>
     <style name="Theme.AppCRUD" parent="Base.Theme.AppCRUD" />
 </resources>

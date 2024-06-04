@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_menu"
+    app:startDestination="@id/ui_tickets">
+
+    <fragment
+        android:id="@+id/ui_tickets"
+        android:name="rodrigo.hurtado.appcrud.ui_tickets"
+        android:label="fragment_ui_tickets"
+        tools:layout="@layout/fragment_ui_tickets" />
+    <fragment
+        android:id="@+id/ui_perfil"
+        android:name="rodrigo.hurtado.appcrud.ui_perfil"
+        android:label="fragment_ui_perfil"
+        tools:layout="@layout/fragment_ui_perfil" />
+</navigation>

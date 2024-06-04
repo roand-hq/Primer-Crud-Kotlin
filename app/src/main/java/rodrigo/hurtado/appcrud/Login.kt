@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.findNavController
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
@@ -34,7 +35,7 @@ class Login : Fragment() {
            CoroutineScope(Dispatchers.Main).launch{
                if(inicioSesion(Correo.toString(), Clave.toString())) {
                    //Podemos llamara inicioSesion ya que estamos en la Corrutina Main
-                   Toast.makeText(requireContext(), "Si pasas", Toast.LENGTH_SHORT).show()
+                   it.findNavController().navigate(R.id.action_login_to_main_menu)
                } else Toast.makeText(requireContext(), "Correo o contraseña incorrectos", Toast.LENGTH_SHORT).show()
            }
         }
