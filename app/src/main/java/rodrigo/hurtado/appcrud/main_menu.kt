@@ -1,8 +1,11 @@
 package rodrigo.hurtado.appcrud
 
 import android.os.Bundle
+import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.core.view.ViewCompat
@@ -58,8 +61,35 @@ class main_menu : AppCompatActivity() {
                 } else -> false
             }
         }
-        fabAdd.setOnClickListener {
-            Toast.makeText(this, "Tu correo es $correo y tu contraseña es $clave", Toast.LENGTH_SHORT).show()
+        fabAdd.setOnClickListener {//Lo que pasa al oprimir el boton de agregar
+            val builder = AlertDialog.Builder(this)
+            val inflater = layoutInflater
+            val dialogLayout = inflater.inflate(R.layout.dialog_layout, null)
+            builder.setView(dialogLayout)
+            val dialog = builder.create()
+
+            val editTextTitle = dialogLayout.findViewById<EditText>(R.id.editTextTitle)
+            val editTextDescription = dialogLayout.findViewById<EditText>(R.id.editTextDescription)
+            val buttonCancel = dialogLayout.findViewById<Button>(R.id.buttonCancel)
+            val buttonCreateTicket = dialogLayout.findViewById<Button>(R.id.buttonCreateTicket)
+
+            buttonCancel.setOnClickListener {
+                dialog.dismiss() // Cerrar el diálogo
+            }
+
+            buttonCreateTicket.setOnClickListener {
+                val title = editTextTitle.text.toString()
+                val description = editTextDescription.text.toString()
+
+                // Aquí puedes hacer algo con los datos ingresados, como crear un ticket
+                // Por ahora, solo cerraremos el diálogo
+                dialog.dismiss() // Cerrar el diálogo
+            }
+
+            dialog.show()
         }
+    }
+    private suspend fun insertarTickets() {
+
     }
 }

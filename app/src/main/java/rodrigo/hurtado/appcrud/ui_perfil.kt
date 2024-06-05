@@ -29,8 +29,6 @@ class ui_perfil : Fragment() {
         val txtPerfilCorreo = vista.findViewById<TextView>(R.id.txtPerfilCorreo)
         val txtPerfilClave = vista.findViewById<TextView>(R.id.txtPerfilClave)
 
-        txtPerfilCorreo.text = correo
-        txtPerfilClave.text = clave
 
         return vista
     }

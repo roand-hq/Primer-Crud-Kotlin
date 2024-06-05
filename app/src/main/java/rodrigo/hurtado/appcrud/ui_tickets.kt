@@ -19,11 +19,9 @@ class ui_tickets : Fragment() {
         val correo = arguments?.getString("correo")
         val clave = arguments?.getString("clave")
 
-        val txtPruebaCorreo = vista.findViewById<TextView>(R.id.txtPruebaCorreo)
-        val txtPruebaClave = vista.findViewById<TextView>(R.id.txtPruebaClave)
 
-        txtPruebaCorreo.text = correo
-        txtPruebaClave.text = clave
+
+
         return vista
 
 
