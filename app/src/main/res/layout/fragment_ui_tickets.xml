@@ -1,13 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui_tickets">
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/txtPruebaCorreo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="fragmento de los tickets" />
+        android:layout_marginStart="189dp"
+        android:layout_marginTop="173dp"
+        android:layout_marginEnd="165dp"
+        android:text="TextView"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/txtPruebaClave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="162dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="192dp"
+        android:text="TextView"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="186dp"
+        android:layout_height="138dp"
+        android:text="FRAGMENTO TICKETS"
+        android:textSize="24sp" />
 </FrameLayout>

@@ -35,7 +35,11 @@ class Login : Fragment() {
            CoroutineScope(Dispatchers.Main).launch{
                if(inicioSesion(Correo.toString(), Clave.toString())) {
                    //Podemos llamara inicioSesion ya que estamos en la Corrutina Main
-                   it.findNavController().navigate(R.id.action_login_to_main_menu)
+                   val paquete = Bundle().apply { //aqui pondremos los datos que nos llevaremos al main menu
+                       putString("correo", Correo.toString())
+                       putString("clave", Clave.toString())
+                   }
+                   it.findNavController().navigate(R.id.action_login_to_main_menu, paquete) //y lo ponemos aqui para que se los envíe a la actividad
                } else Toast.makeText(requireContext(), "Correo o contraseña incorrectos", Toast.LENGTH_SHORT).show()
            }
         }
@@ -43,7 +47,7 @@ class Login : Fragment() {
     }
     private suspend fun inicioSesion(correo: String, clave:String): Boolean{
         //Las funciones suspend se pueden llamar desde otras corrutinas u otras funciones de suspension
-        return withContext(Dispatchers.IO) {//Significa que todo se ejecuta en el hilo IO
+        return withContext(Dispatchers.IO) {//Significa que se ejecutará en el hilo IO
             try {
                 val objConexion = ClaseConexion().CadenaConexion()
                 val buscarUsuario = objConexion?.prepareStatement("select * from ac_Usuarios where Correo = ? and Clave = ?")!!

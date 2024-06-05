@@ -9,10 +9,25 @@
         android:id="@+id/ui_tickets"
         android:name="rodrigo.hurtado.appcrud.ui_tickets"
         android:label="fragment_ui_tickets"
-        tools:layout="@layout/fragment_ui_tickets" />
+        tools:layout="@layout/fragment_ui_tickets">
+        <!-- Debemos agregar estos argumentos para que el fragmento sepa que usuario ha accedido -->
+        <argument
+            android:name="correo"
+            app:argType="string" />
+        <argument
+            android:name="clave"
+            app:argType="string" />
+    </fragment>
+
     <fragment
         android:id="@+id/ui_perfil"
         android:name="rodrigo.hurtado.appcrud.ui_perfil"
         android:label="fragment_ui_perfil"
-        tools:layout="@layout/fragment_ui_perfil" />
+        tools:layout="@layout/fragment_ui_perfil">
+        <argument
+            android:name="correo"
+            app:argType="string" />
+        <argument android:name="clave"
+            app:argType="string" />
+    </fragment>
 </navigation>
