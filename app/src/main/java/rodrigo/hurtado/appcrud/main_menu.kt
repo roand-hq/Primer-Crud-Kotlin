@@ -1,5 +1,7 @@
 package rodrigo.hurtado.appcrud
 
+import Modelo.ClaseConexion
+import android.icu.text.DateFormat
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -16,8 +18,16 @@ import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class main_menu : AppCompatActivity() {
+    val correo = intent?.extras?.getString("correo") //así recibimos los valores del log in
+    val clave = intent?.extras?.getString("clave")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,8 +53,7 @@ class main_menu : AppCompatActivity() {
                 else -> fabAdd.hide()
             }
         } // hasta aca llega el addOnDestinationChangedListener
-        val correo = intent?.extras?.getString("correo") //así recibimos los valores del log in
-        val clave = intent?.extras?.getString("clave")
+
 
         val paquete = bundleOf("correo" to correo, "clave" to clave) //metemos todas las cosas en un paquete
         navController.navigate(R.id.ui_tickets,paquete) //navegamos a Tickets para que se muestre al inicio
@@ -74,22 +83,38 @@ class main_menu : AppCompatActivity() {
             val buttonCreateTicket = dialogLayout.findViewById<Button>(R.id.buttonCreateTicket)
 
             buttonCancel.setOnClickListener {
-                dialog.dismiss() // Cerrar el diálogo
+                dialog.dismiss()
             }
 
             buttonCreateTicket.setOnClickListener {
-                val title = editTextTitle.text.toString()
-                val description = editTextDescription.text.toString()
-
-                // Aquí puedes hacer algo con los datos ingresados, como crear un ticket
-                // Por ahora, solo cerraremos el diálogo
-                dialog.dismiss() // Cerrar el diálogo
+                val titulo = editTextTitle.text.toString()
+                val descripcion = editTextDescription.text.toString()
+                CoroutineScope(Dispatchers.Main).launch {
+                    insertarTickets(titulo, descripcion)
+                }
+                dialog.dismiss()
             }
 
             dialog.show()
         }
     }
-    private suspend fun insertarTickets() {
+    private suspend fun insertarTickets(titulo: String, descripcion: String) {
+        withContext(Dispatchers.IO) {
+                val fecha_actual = LocalDate.now() //como obtener la fecha actual
+            val formato = DateTimeFormatter.ofPattern("dd-MM-yyyy")
+            val fechaConFormato = fecha_actual.format(formato)
 
+            val objConexion = ClaseConexion().CadenaConexion()
+            val addTicket = objConexion?.prepareStatement("insert into ac_tickets values(?,?,?,?,?,?,?,?)")!!
+            addTicket.setString(1,"default")
+            addTicket.setString(2,titulo)
+            addTicket.setString(3,descripcion)
+            addTicket.setString(4, "(SELECT Nombre || ' ' || Apellido FROM ac_Usuarios WHERE Correo = '$correo')")
+            addTicket.setString(5, correo)
+            addTicket.setString(6, fechaConFormato)
+            addTicket.setString(7, "null")
+            addTicket.setString(8, "Activo")
+            addTicket.executeUpdate()
+        }
     }
 }
