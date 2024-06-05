@@ -8,6 +8,6 @@ Estas son algunas personas sin las cuales esta aplicación no habría sido posib
 
 - [Exequiel Miranda](https://github.com/exequiel-miranda) - Por sus correcciones constantes
 - [AristiDevs](https://www.youtube.com/@AristiDevs) - Por su tutorial sobre el manejo de argumentos con Navigation Component.
-- [Android Knowledge](www.youtube.com/@android_knowledge) - Por su tutorial de como empezar a usar Navigation Component.
+- [Android Knowledge](https://www.youtube.com/@android_knowledge) - Por su tutorial de como empezar a usar Navigation Component.
 
 ¡Gracias a todos por sus conocimientos!
