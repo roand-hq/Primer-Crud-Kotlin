@@ -1,7 +1,6 @@
 package rodrigo.hurtado.appcrud
 
 import Modelo.ClaseConexion
-import android.icu.text.DateFormat
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -14,7 +13,6 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.navArgument
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -22,15 +20,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
-import java.sql.Date
-import java.sql.ResultSet
 
 class main_menu : AppCompatActivity() {
-    val correoRecibido = intent?.extras?.getString("correo") //así recibimos los valores del log in
-    val claveRecibida = intent?.extras?.getString("clave")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,12 +49,10 @@ class main_menu : AppCompatActivity() {
                 else -> fabAdd.hide()
             }
         } // hasta aca llega el addOnDestinationChangedListener
+        val correoRecibido = intent?.extras?.getString("correo") //así recibimos los valores del log in
+        val claveRecibida = intent?.extras?.getString("clave")
 
-
-        val paquete = bundleOf(
-            "correoRecibido" to correoRecibido,
-            "claveRecibida" to claveRecibida
-        ) //metemos todas las cosas en un paquete
+        val paquete = bundleOf("correo" to correoRecibido, "clave" to claveRecibida) //metemos todas las cosas en un paquete
         navController.navigate(R.id.ui_tickets,paquete) //navegamos a Tickets para que se muestre al inicio
         bottomNavigationView.setOnNavigationItemSelectedListener { item -> //así enviamos los valores a los fragments
             when(item.itemId) {
@@ -89,18 +80,40 @@ class main_menu : AppCompatActivity() {
             val buttonCreateTicket = dialogLayout.findViewById<Button>(R.id.buttonCreateTicket)
 
             buttonCancel.setOnClickListener {
-                dialog.dismiss()
+                dialog.dismiss() // Cerrar el diálogo
             }
 
             buttonCreateTicket.setOnClickListener {
-                val titulo_dialog = editTextTitle.text.toString()
-                val descripcion_dialog = editTextDescription.text.toString()
-                Toast.makeText(this, "T: $titulo_dialog D: $descripcion_dialog, C: $correoRecibido", Toast.LENGTH_SHORT).show()
-                dialog.dismiss()
+                val texto_titulo = editTextTitle.text.toString()
+                val texto_desc = editTextDescription.text.toString()
+
+                CoroutineScope(Dispatchers.IO).launch {
+                    try {
+                        val fechaActual = LocalDate.now()
+                        val formato = DateTimeFormatter.ofPattern("dd-MM-yyyy")
+                        val fechaFormato = fechaActual.format(formato)
+
+                        val objConexion = ClaseConexion().CadenaConexion()
+
+                        val addTicket = objConexion?.prepareStatement(
+                            "INSERT INTO ac_tickets (titulo, descripcion, autor, email_autor, fecha_creacion) " +
+                                    "VALUES (?, ?, (SELECT Nombre || ' ' || Apellido as Nombre FROM ac_Usuarios WHERE Correo = ?), ?, ?)"
+                        )!!
+                        addTicket.setString(1, texto_titulo)
+                        addTicket.setString(2, texto_desc)
+                        addTicket.setString(3, correoRecibido)
+                        addTicket.setString(4, correoRecibido)
+                        addTicket.setString(5, fechaFormato)
+                        addTicket.executeUpdate()
+                    } catch (e: Exception) {
+                        println("Algo fallo: $e")
+                    }
+                }
+                dialog.dismiss() // Cerrar el diálogo
             }
 
             dialog.show()
         }
     }
 
-    }
+}
