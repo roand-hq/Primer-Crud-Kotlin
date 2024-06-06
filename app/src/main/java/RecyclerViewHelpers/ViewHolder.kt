@@ -9,6 +9,7 @@ import rodrigo.hurtado.appcrud.R
 
 class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
     val txtTituloCard = view.findViewById<TextView>(R.id.txtTituloCard)
-    val btnUpdateCard = view.findViewById<ImageView>(R.id.btnUpdateCard)
-    val vtnElimCard = view.findViewById<ImageView>(R.id.btnElimCard)
+    val btnElimCard = view.findViewById<ImageView>(R.id.btnElimCard)
+
+
 }

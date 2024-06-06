@@ -5,7 +5,7 @@ import java.sql.DriverManager
 class ClaseConexion {
     fun CadenaConexion(): Connection? {
         try {
-            val url = "jdbc:oracle:thin:@192.168.88.40:1521:xe"
+            val url = "jdbc:oracle:thin:@192.168.179.50:1521:xe"
             val usuario = "c##_Rodrigo"
             val clave = "momazos_salecianos"
              val conexion = DriverManager.getConnection(url,usuario,clave)

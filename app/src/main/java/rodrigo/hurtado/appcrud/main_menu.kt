@@ -1,6 +1,8 @@
 package rodrigo.hurtado.appcrud
 
 import Modelo.ClaseConexion
+import Modelo.tbTickets
+import RecyclerViewHelpers.Adaptador
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -20,6 +22,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -67,6 +70,7 @@ class main_menu : AppCompatActivity() {
                 } else -> false
             }
         }
+
         fabAdd.setOnClickListener {//Lo que pasa al oprimir el boton de agregar
             val builder = AlertDialog.Builder(this)
             val inflater = layoutInflater
@@ -78,7 +82,7 @@ class main_menu : AppCompatActivity() {
             val editTextDescription = dialogLayout.findViewById<EditText>(R.id.editTextDescription)
             val buttonCancel = dialogLayout.findViewById<Button>(R.id.buttonCancel)
             val buttonCreateTicket = dialogLayout.findViewById<Button>(R.id.buttonCreateTicket)
-
+            buttonCreateTicket.text = "Crear ticket"
             buttonCancel.setOnClickListener {
                 dialog.dismiss() // Cerrar el diálogo
             }
@@ -105,10 +109,12 @@ class main_menu : AppCompatActivity() {
                         addTicket.setString(4, correoRecibido)
                         addTicket.setString(5, fechaFormato)
                         addTicket.executeUpdate()
+
                     } catch (e: Exception) {
                         println("Algo fallo: $e")
                     }
                 }
+
                 dialog.dismiss() // Cerrar el diálogo
             }
 

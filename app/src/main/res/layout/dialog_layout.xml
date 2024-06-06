@@ -49,8 +49,7 @@
             android:layout_width="202dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:fontFamily="@font/nunito_sans"
-            android:text="Crear ticket" />
+            android:fontFamily="@font/nunito_sans" />
     </LinearLayout>
 
 </LinearLayout>
