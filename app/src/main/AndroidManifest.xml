@@ -15,9 +15,11 @@
         android:theme="@style/Theme.AppCRUD"
         tools:targetApi="31">
         <activity
+            android:name=".intem_card"
+            android:exported="false" />
+        <activity
             android:name=".main_menu"
             android:exported="false" />
-
         <activity
             android:name=".MainActivity"
             android:exported="true">
