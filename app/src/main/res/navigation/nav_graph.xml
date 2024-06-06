@@ -40,5 +40,12 @@
         android:id="@+id/main_menu"
         android:name="rodrigo.hurtado.appcrud.main_menu"
         android:label="activity_main_menu"
-        tools:layout="@layout/activity_main_menu" />
+        tools:layout="@layout/activity_main_menu" >
+        <argument
+            android:name="correo"
+            app:argType="string" />
+        <argument
+            android:name="clave"
+            app:argType="string" />
+    </activity>
 </navigation>
