@@ -1,5 +1,6 @@
 package rodrigo.hurtado.appcrud
 
+import Modelo.ClaseConexion
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -16,6 +17,12 @@ import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class main_menu : AppCompatActivity() {
 
@@ -43,10 +50,10 @@ class main_menu : AppCompatActivity() {
                 else -> fabAdd.hide()
             }
         } // hasta aca llega el addOnDestinationChangedListener
-        val correo = intent?.extras?.getString("correo") //así recibimos los valores del log in
-        val clave = intent?.extras?.getString("clave")
+        val correoRecibido = intent?.extras?.getString("correo") //así recibimos los valores del log in
+        val claveRecibida = intent?.extras?.getString("clave")
 
-        val paquete = bundleOf("correo" to correo, "clave" to clave) //metemos todas las cosas en un paquete
+        val paquete = bundleOf("correo" to correoRecibido, "clave" to claveRecibida) //metemos todas las cosas en un paquete
         navController.navigate(R.id.ui_tickets,paquete) //navegamos a Tickets para que se muestre al inicio
         bottomNavigationView.setOnNavigationItemSelectedListener { item -> //así enviamos los valores a los fragments
             when(item.itemId) {
@@ -78,18 +85,37 @@ class main_menu : AppCompatActivity() {
             }
 
             buttonCreateTicket.setOnClickListener {
-                val title = editTextTitle.text.toString()
-                val description = editTextDescription.text.toString()
+                val texto_titulo = editTextTitle.text.toString()
+                val texto_desc = editTextDescription.text.toString()
 
-                // Aquí puedes hacer algo con los datos ingresados, como crear un ticket
-                // Por ahora, solo cerraremos el diálogo
+                CoroutineScope(Dispatchers.IO).launch {
+                    try {
+                        val fechaActual = LocalDate.now()
+                        val formato = DateTimeFormatter.ofPattern("dd-MM-yyyy")
+                        val fechaFormato = fechaActual.format(formato)
+
+                        val objConexion = ClaseConexion().CadenaConexion()
+
+                        val addTicket = objConexion?.prepareStatement(
+                            "INSERT INTO ac_tickets (titulo, descripcion, autor, email_autor, fecha_creacion) " +
+                                    "VALUES (?, ?, (SELECT Nombre || ' ' || Apellido as Nombre FROM ac_Usuarios WHERE Correo = ?), ?, ?)"
+                        )!!
+                        addTicket.setString(1, texto_titulo)
+                        addTicket.setString(2, texto_desc)
+                        addTicket.setString(3, correoRecibido)
+                        addTicket.setString(4, correoRecibido)
+                        addTicket.setString(5, fechaFormato)
+                        addTicket.executeUpdate()
+                    } catch (e: Exception) {
+                        println("Algo fallo: $e")
+                    }
+                }
+//                Toast.makeText(this, "T: $title D:$description C:$correoRecibido", Toast.LENGTH_SHORT).show()
                 dialog.dismiss() // Cerrar el diálogo
             }
 
             dialog.show()
         }
     }
-    private suspend fun insertarTickets() {
 
-    }
 }
