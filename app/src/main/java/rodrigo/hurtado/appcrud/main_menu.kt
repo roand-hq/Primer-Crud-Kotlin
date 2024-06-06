@@ -104,7 +104,7 @@ class main_menu : AppCompatActivity() {
                         addTicket.setString(3, correoRecibido)
                         addTicket.setString(4, correoRecibido)
                         addTicket.setString(5, fechaFormato)
-                        addTicket.executeUpdate() //soy un fiera
+                        addTicket.executeUpdate()
                     } catch (e: Exception) {
                         println("Algo fallo: $e")
                     }
