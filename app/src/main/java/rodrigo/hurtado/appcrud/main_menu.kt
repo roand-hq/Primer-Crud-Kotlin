@@ -117,7 +117,7 @@ class main_menu : AppCompatActivity() {
                 dialog.dismiss() // Cerrar el diálogo
             }
 
-            dialog.show()
+            dialog.show() //mostrar el dialogo
         }
     }
 
