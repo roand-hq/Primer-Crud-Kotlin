@@ -11,6 +11,6 @@ class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
     val iconEstado = view.findViewById<ImageView>(R.id.iconEstado)
     val btnElimCard = view.findViewById<ImageView>(R.id.btnElimCard)
     val txtEstado = view.findViewById<TextView>(R.id.txtEstado)
-
+    val btnUpdateCard = view.findViewById<ImageView>(R.id.btnUpdateCard)
 
 }

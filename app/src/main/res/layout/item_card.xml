@@ -50,6 +50,12 @@
     </LinearLayout>
 
     <ImageView
+        android:id="@+id/btnUpdateCard"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        app:srcCompat="@drawable/icon_edit" />
+
+    <ImageView
         android:id="@+id/btnElimCard"
         android:layout_width="48dp"
         android:layout_height="48dp"

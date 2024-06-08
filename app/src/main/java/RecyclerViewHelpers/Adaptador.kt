@@ -2,29 +2,49 @@ package RecyclerViewHelpers
 
 import Modelo.ClaseConexion
 import Modelo.tbTickets
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import rodrigo.hurtado.appcrud.R
 
-class Adaptador(var Datos: List<tbTickets>): RecyclerView.Adapter<ViewHolder>() {
+class Adaptador(
+    var Datos: List<tbTickets>
+): RecyclerView.Adapter<ViewHolder>() {
 
-    fun actualizarTickets(nuevaLista:List<tbTickets>){
+    fun actualizarLista(nuevaLista:List<tbTickets>){
         Datos=nuevaLista
         notifyDataSetChanged()
     }
-    fun actualizarListaDespuesDeActualizarDatos(num_ticket: Int, nuevoEstado: String){
+    fun actualizarListaDespuesDeActualizarDatos(num_ticket: Int, nuevoTitulo: String, nuevaDesc: String){
         val index=Datos.indexOfFirst { it.num_ticket == num_ticket}
-        Datos[index].estado=nuevoEstado
+        Datos[index].titulo=nuevoTitulo
+        Datos[index].descripcion =nuevaDesc
         notifyItemChanged(index)
-
+    }
+    fun actualizarTickets(titulo: String, desc: String, num_ticket: Int){
+        GlobalScope.launch(Dispatchers.IO) {
+            val objClaseConexion = ClaseConexion().CadenaConexion()
+            val updTicket = objClaseConexion?.prepareStatement("update ac_tickets set Titulo = ?, descripcion = ? where num_ticket = ?")!!
+            updTicket.setString(1, titulo)
+            updTicket.setString(2, desc)
+            updTicket.setInt(3, num_ticket)
+            updTicket.executeUpdate()
+            val commit = objClaseConexion.prepareStatement("commit")
+            commit.executeUpdate()
+            withContext(Dispatchers.Main) {
+                actualizarListaDespuesDeActualizarDatos(num_ticket,titulo,desc)
+            }
+        }
     }
 
     fun elimiarTickets(num_ticket: Int, position: Int) {
@@ -76,10 +96,51 @@ class Adaptador(var Datos: List<tbTickets>): RecyclerView.Adapter<ViewHolder>() 
             val alertDialog = builder.create()
             alertDialog.show()
         }
+        holder.btnUpdateCard.setOnClickListener {
+            val contexto = holder.itemView.context
+            val builder = AlertDialog.Builder(contexto)
+            val dialogLayout = LayoutInflater.from(contexto).inflate(R.layout.dialog_layout, null)
+            //ESTA LINEA HIZO QUE ME TARDARA 2 DIAS EN LOGRAR ESTO, PERO AL FIN FUNCIONA
+            builder.setView(dialogLayout)
+            val dialog = builder.create()
+            val editTextTitle = dialogLayout.findViewById<EditText>(R.id.editTextTitle)
+            val editTextDescription = dialogLayout.findViewById<EditText>(R.id.editTextDescription)
+            val buttonCancel = dialogLayout.findViewById<Button>(R.id.buttonCancel)
+            val buttonCreateTicket = dialogLayout.findViewById<Button>(R.id.buttonCreateTicket)
+            editTextTitle.setHint(item.titulo)
+            editTextDescription.setHint(item.descripcion)
+            buttonCreateTicket.text = "Actualizar ticket"
+
+            buttonCreateTicket.setOnClickListener {
+                val nuevoTitulo = editTextTitle.text.toString()
+                val nuevaDescripcion = editTextDescription.text.toString()
+                actualizarTickets(nuevoTitulo,nuevaDescripcion,item.num_ticket)
+
+                dialog.dismiss()
+            }
+            buttonCancel.setOnClickListener {
+                dialog.dismiss()
+            }
+            dialog.show()
+        }
         holder.itemView.setOnClickListener {
+            val contexto = holder.itemView.context
+            val builder = AlertDialog.Builder(contexto)
+            val dialogLayout = LayoutInflater.from(contexto).inflate(R.layout.dialog_details, null)
+            //ESTA LINEA HIZO QUE ME TARDARA 2 DIAS EN LOGRAR ESTO, PERO AL FIN FUNCIONA
+            builder.setView(dialogLayout)
+            val dialog = builder.create()
+            val editTextTitle = dialogLayout.findViewById<EditText>(R.id.editTextTitle)
+            val editTextDescription = dialogLayout.findViewById<EditText>(R.id.editTextDescription)
+            val buttonCreateTicket = dialogLayout.findViewById<Button>(R.id.buttonCreateTicket)
+            buttonCreateTicket.text = "Cerrar"
+            editTextTitle.setText(item.titulo)
+            editTextDescription.setText(item.descripcion)
 
-
+            buttonCreateTicket.setOnClickListener {
+                dialog.dismiss()
+            }
+            dialog.show()
         }
     }
-
 }
