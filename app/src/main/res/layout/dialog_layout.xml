@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:fontFamily="@font/nunito_sans"
-            android:text="Crear ticket" />
+            android:text="Text" />
     </LinearLayout>
 
 </LinearLayout>

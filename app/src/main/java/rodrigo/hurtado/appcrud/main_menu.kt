@@ -1,6 +1,7 @@
 package rodrigo.hurtado.appcrud
 
 import Modelo.ClaseConexion
+import Modelo.tbTickets
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -22,6 +23,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+
+
 
 class main_menu : AppCompatActivity() {
 
@@ -78,7 +81,7 @@ class main_menu : AppCompatActivity() {
             val editTextDescription = dialogLayout.findViewById<EditText>(R.id.editTextDescription)
             val buttonCancel = dialogLayout.findViewById<Button>(R.id.buttonCancel)
             val buttonCreateTicket = dialogLayout.findViewById<Button>(R.id.buttonCreateTicket)
-
+            buttonCreateTicket.text = "Crear ticket"
             buttonCancel.setOnClickListener {
                 dialog.dismiss() // Cerrar el diálogo
             }
@@ -96,15 +99,17 @@ class main_menu : AppCompatActivity() {
                         val objConexion = ClaseConexion().CadenaConexion()
 
                         val addTicket = objConexion?.prepareStatement(
-                            "INSERT INTO ac_tickets (titulo, descripcion, autor, email_autor, fecha_creacion) " +
-                                    "VALUES (?, ?, (SELECT Nombre || ' ' || Apellido as Nombre FROM ac_Usuarios WHERE Correo = ?), ?, ?)"
+                            "INSERT INTO ac_tickets (titulo, descripcion, autor, email_autor, fecha_creacion, estado) " +
+                                    "VALUES (?, ?, (SELECT Nombre || ' ' || Apellido as Nombre FROM ac_Usuarios WHERE Correo = ?), ?, ?,?)"
                         )!!
                         addTicket.setString(1, texto_titulo)
                         addTicket.setString(2, texto_desc)
                         addTicket.setString(3, correoRecibido)
                         addTicket.setString(4, correoRecibido)
                         addTicket.setString(5, fechaFormato)
+                        addTicket.setString(6, "ACTIVO")
                         addTicket.executeUpdate()
+
                     } catch (e: Exception) {
                         println("Algo fallo: $e")
                     }
