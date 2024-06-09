@@ -70,6 +70,7 @@ class main_menu : AppCompatActivity() {
                 } else -> false
             }
         }
+
         fabAdd.setOnClickListener {//Lo que pasa al oprimir el boton de agregar
             val builder = AlertDialog.Builder(this)
             val inflater = layoutInflater

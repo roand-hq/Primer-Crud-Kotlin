@@ -4,6 +4,7 @@ import Modelo.ClaseConexion
 import Modelo.tbTickets
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
@@ -21,10 +22,6 @@ class Adaptador(
     var Datos: List<tbTickets>
 ): RecyclerView.Adapter<ViewHolder>() {
 
-    fun actualizarLista(nuevaLista:List<tbTickets>){
-        Datos=nuevaLista
-        notifyDataSetChanged()
-    }
     fun actualizarListaDespuesDeActualizarDatos(num_ticket: Int, nuevoTitulo: String, nuevaDesc: String){
         val index=Datos.indexOfFirst { it.num_ticket == num_ticket}
         Datos[index].titulo=nuevoTitulo
@@ -81,6 +78,7 @@ class Adaptador(
 
         if(item.estado != "ACTIVO"){
             holder.iconEstado.setImageResource(R.drawable.ic_estado_cerrado)
+            holder.btnUpdateCard.visibility = View.GONE
         }
 
         holder.btnElimCard.setOnClickListener {
@@ -100,7 +98,7 @@ class Adaptador(
             val contexto = holder.itemView.context
             val builder = AlertDialog.Builder(contexto)
             val dialogLayout = LayoutInflater.from(contexto).inflate(R.layout.dialog_layout, null)
-            //ESTA LINEA HIZO QUE ME TARDARA 2 DIAS EN LOGRAR ESTO, PERO AL FIN FUNCIONA
+            //ESTA LINEA DE ARRIBA HIZO QUE ME TARDARA 2 DIAS EN LOGRAR ESTO, PERO AL FIN FUNCIONA
             builder.setView(dialogLayout)
             val dialog = builder.create()
             val editTextTitle = dialogLayout.findViewById<EditText>(R.id.editTextTitle)
@@ -127,7 +125,6 @@ class Adaptador(
             val contexto = holder.itemView.context
             val builder = AlertDialog.Builder(contexto)
             val dialogLayout = LayoutInflater.from(contexto).inflate(R.layout.dialog_details, null)
-            //ESTA LINEA HIZO QUE ME TARDARA 2 DIAS EN LOGRAR ESTO, PERO AL FIN FUNCIONA
             builder.setView(dialogLayout)
             val dialog = builder.create()
             val editTextTitle = dialogLayout.findViewById<EditText>(R.id.editTextTitle)
@@ -138,6 +135,7 @@ class Adaptador(
             editTextDescription.setText(item.descripcion)
 
             buttonCreateTicket.setOnClickListener {
+                
                 dialog.dismiss()
             }
             dialog.show()

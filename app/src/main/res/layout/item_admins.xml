@@ -20,12 +20,11 @@
         android:paddingEnd="16dp">
 
         <TextView
-            android:id="@+id/txtTituloCard"
-            android:layout_width="wrap_content"
+            android:id="@+id/txtTituloAdmins"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/nunito_sans"
             android:text="Text"
-            android:textColor="@android:color/black"
             android:textSize="18sp" />
 
         <LinearLayout
@@ -35,31 +34,33 @@
             android:paddingTop="8dp">
 
             <ImageView
-                android:id="@+id/iconEstado"
+                android:id="@+id/estadoAdmin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 app:srcCompat="@drawable/ic_estado_activo" />
 
             <TextView
-                android:id="@+id/txtEstado"
+                android:id="@+id/estadoAdminTexto"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="@font/nunito_sans"
                 android:text="Text" />
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/txtAutor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nunito_sans"
+            android:text="Text" />
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/btnUpdateCard"
+        android:id="@+id/btnCerrarTicket"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        app:srcCompat="@drawable/icon_edit" />
+        app:srcCompat="@drawable/icon_cerrado" />
 
-    <ImageView
-        android:id="@+id/btnElimCard"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:src="@drawable/icon_elim" />
 </LinearLayout>

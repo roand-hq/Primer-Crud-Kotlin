@@ -35,6 +35,9 @@
         <action
             android:id="@+id/action_login_to_main_menu"
             app:destination="@id/main_menu" />
+        <action
+            android:id="@+id/action_login_to_menu_admins"
+            app:destination="@id/menu_admins" />
     </fragment>
     <activity
         android:id="@+id/main_menu"
@@ -48,4 +51,9 @@
             android:name="clave"
             app:argType="string" />
     </activity>
+    <activity
+        android:id="@+id/menu_admins"
+        android:name="rodrigo.hurtado.appcrud.menu_admins"
+        android:label="activity_menu_admins"
+        tools:layout="@layout/activity_menu_admins" />
 </navigation>
